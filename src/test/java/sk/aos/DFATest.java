@@ -13,17 +13,15 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.Assert.fail;
-
 
 public class DFATest {
+
     HashSet<String> terminals3;
     HashSet<String> nonterminals3;
     Rule rule19;
     Rule rule20;
     Rule rule21;
     Rule rule22;
-    Rule rule23;
 
     HashSet<String> states, inputSymbols, acceptingStates, states2, inputSymbols2, acceptingStates2;
     String initialState, initialState2;
@@ -121,9 +119,8 @@ public class DFATest {
 
     @Test
     public void test() {
-        try {
-            DeterministicFinAutomaton d4 = new DeterministicFinAutomaton(n4);
-            d4.showDFA();
+        DeterministicFinAutomaton d4 = new DeterministicFinAutomaton(n4);
+        d4.showDFA();
 			/*
 			 Transition Function of d4:
 			 Format: [State] : {inputSymbol=[resultState]}
@@ -135,9 +132,9 @@ public class DFATest {
 				[q, C, E, F] : {a=[q, C, F], b=[E]}
 			 */
 
-            DeterministicFinAutomaton d3 = new DeterministicFinAutomaton(n3);
+        DeterministicFinAutomaton d3 = new DeterministicFinAutomaton(n3);
 
-            d3.showDFA();
+        d3.showDFA();
 
 			/*
 			 Transition Function of d3:
@@ -147,17 +144,12 @@ public class DFATest {
 				[S] : {a=[S], b=[A, q]}
 			 */
 
-            DeterministicFinAutomaton d5 = new DeterministicFinAutomaton(g3);
-            d5.showDFA();
+        DeterministicFinAutomaton d5 = new DeterministicFinAutomaton(g3);
+        d5.showDFA();
 
-            DeterministicFinAutomaton d2 = new DeterministicFinAutomaton(n2);
+        DeterministicFinAutomaton d2 = new DeterministicFinAutomaton(n2);
 
-            d2.showDFA();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("Unexpected exception");
-        }
+        d2.showDFA();
     }
 
 }

@@ -11,10 +11,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.Assert.fail;
-
 
 public class FirstAndFollowClassTest {
+
     HashSet<String> terminals;
     HashSet<String> nonterminals;
     Rule rule1;
@@ -44,28 +43,21 @@ public class FirstAndFollowClassTest {
     }
 
     @Test
-    public void testFirst() {
-        try {
-            ContextFreeGrammar g = new ContextFreeGrammar(terminals, nonterminals, rules, startsymbol);
+    public void testFirst() throws Exception {
+        ContextFreeGrammar g = new ContextFreeGrammar(terminals, nonterminals, rules, startsymbol);
 
+        System.out.println("FIRST S:" + FirstAndFollowClass.first(g, "S"));
+        System.out.println("FIRST A:" + FirstAndFollowClass.first(g, "A"));
+        System.out.println("FIRST B:" + FirstAndFollowClass.first(g, "B"));
+        System.out.println("FIRST a:" + FirstAndFollowClass.first(g, "a"));
+        System.out.println("FIRST b:" + FirstAndFollowClass.first(g, "b"));
+        System.out.println("FIRST (:" + FirstAndFollowClass.first(g, "("));
+        System.out.println("FIRST ):" + FirstAndFollowClass.first(g, ")"));
+        System.out.println("FIRST +:" + FirstAndFollowClass.first(g, "+"));
 
-            System.out.println("FIRST S:" + FirstAndFollowClass.first(g, "S"));
-            System.out.println("FIRST A:" + FirstAndFollowClass.first(g, "A"));
-            System.out.println("FIRST B:" + FirstAndFollowClass.first(g, "B"));
-            System.out.println("FIRST a:" + FirstAndFollowClass.first(g, "a"));
-            System.out.println("FIRST b:" + FirstAndFollowClass.first(g, "b"));
-            System.out.println("FIRST (:" + FirstAndFollowClass.first(g, "("));
-            System.out.println("FIRST ):" + FirstAndFollowClass.first(g, ")"));
-            System.out.println("FIRST +:" + FirstAndFollowClass.first(g, "+"));
-
-            System.out.println("FOLLOW S:" + FirstAndFollowClass.Follow(g, "S"));
-            System.out.println("FOLLOW A:" + FirstAndFollowClass.Follow(g, "A"));
-            System.out.println("FOLLOW B:" + FirstAndFollowClass.Follow(g, "B"));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("Unexpected exception");
-        }
+        System.out.println("FOLLOW S:" + FirstAndFollowClass.Follow(g, "S"));
+        System.out.println("FOLLOW A:" + FirstAndFollowClass.Follow(g, "A"));
+        System.out.println("FOLLOW B:" + FirstAndFollowClass.Follow(g, "B"));
     }
 
 }

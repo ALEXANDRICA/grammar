@@ -63,16 +63,12 @@ public class DeterministicFinAutomaton {
                             }
                         }
 
-                        for (String s : pomresult) {
-                            result.add(s);
-                        }
+                        result.addAll(pomresult);
 
                         // closure of all states in NKA
                         pomresult = closure(result, n.getTransitionFunction());
 
-                        for (String s : pomresult) {
-                            result.add(s);
-                        }
+                        result.addAll(pomresult);
                     }
 
                     if (result.size() > 0) {
@@ -94,11 +90,11 @@ public class DeterministicFinAutomaton {
 
         // finds accepting states in set of states
         this.acceptingStates = new ArrayList<>();
-        for (int i = 0; i < this.states.size(); i++) {
+        for (HashSet<String> state : this.states) {
             for (String s : n.getAcceptingStates()) {
-                if (this.states.get(i).contains(s)) {
-                    if (!this.acceptingStates.contains(this.states.get(i))) {
-                        this.acceptingStates.add(this.states.get(i));
+                if (state.contains(s)) {
+                    if (!this.acceptingStates.contains(state)) {
+                        this.acceptingStates.add(state);
                     }
                 }
             }
@@ -126,7 +122,6 @@ public class DeterministicFinAutomaton {
 
         // if there is epsilon defined as input symbol
         if (transitionFunction.getColumnHeaders().contains("epsilon")) {
-
             do {
                 // stores initial set of states
                 pom = statesAL;
@@ -139,10 +134,10 @@ public class DeterministicFinAutomaton {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    for (int i = 0; i < pom2.size(); i++) {
+                    for (String value : pom2) {
                         // state cant be "-"
-                        if (!pom2.get(i).equals("-")) {
-                            it.add(pom2.get(i));
+                        if (!value.equals("-")) {
+                            it.add(value);
 
                         }
                     }

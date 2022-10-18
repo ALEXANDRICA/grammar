@@ -63,7 +63,7 @@ public class Grammar {
             throw new Exception("Left sides of Rules do not contain starting symbol of grammar");
         } else if (ok > 0) {
             throw new Exception("Rules have to be made only from terminal or nonterminal symbols");
-        } else if (checkstart > 0 && checknont >= rules.size()) {
+        } else if (checkstart > 0) {
             this.rules = rules;
         } else {
             throw new Exception("Unexpected error");

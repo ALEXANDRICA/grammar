@@ -11,8 +11,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.Assert.fail;
-
 
 public class RemovingExcessSymbolTest {
 
@@ -85,21 +83,16 @@ public class RemovingExcessSymbolTest {
     }
 
     @Test
-    public void test1() {
-        try {
-            ContextFreeGrammar g = new ContextFreeGrammar(terminals, nonterminals, rules1, startsymbol);
-            ContextFreeGrammar g1 = new ContextFreeGrammar(terminal, nonterminal, rules2, startsymbo);
-            ContextFreeGrammar g3 = RemovingExcessSymbols.redukovanaGramatika(g);
-            ContextFreeGrammar g4 = RemovingExcessSymbols.redukovanaGramatika(g1);
-            System.out.println("TERMINALS g3: " + g3.getTerminals().toString());
-            System.out.println("NONTERMINALS g3: " + g3.getNonterminals().toString());
+    public void test1() throws Exception {
+        ContextFreeGrammar g = new ContextFreeGrammar(terminals, nonterminals, rules1, startsymbol);
+        ContextFreeGrammar g1 = new ContextFreeGrammar(terminal, nonterminal, rules2, startsymbo);
+        ContextFreeGrammar g3 = RemovingExcessSymbols.redukovanaGramatika(g);
+        ContextFreeGrammar g4 = RemovingExcessSymbols.redukovanaGramatika(g1);
+        System.out.println("TERMINALS g3: " + g3.getTerminals().toString());
+        System.out.println("NONTERMINALS g3: " + g3.getNonterminals().toString());
 
-            System.out.println("TERMINALS g4: " + g4.getTerminals().toString());
-            System.out.println("NONTERMINALS g4: " + g4.getNonterminals().toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("Unexepected exception");
-        }
+        System.out.println("TERMINALS g4: " + g4.getTerminals().toString());
+        System.out.println("NONTERMINALS g4: " + g4.getNonterminals().toString());
     }
 
 }

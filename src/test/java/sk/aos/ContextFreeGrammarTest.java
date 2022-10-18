@@ -46,13 +46,8 @@ public class ContextFreeGrammarTest {
     }
 
     @Test
-    public void test1() {
-        try {
-            new ContextFreeGrammar(terminals, nonterminals, rules1, startsymbol);
-        } catch (Exception e) {
-            fail("Unexepected exception");
-            e.printStackTrace();
-        }
+    public void test1() throws Exception {
+        new ContextFreeGrammar(terminals, nonterminals, rules1, startsymbol);
     }
 
     @Test
@@ -61,6 +56,7 @@ public class ContextFreeGrammarTest {
             new ContextFreeGrammar(terminals, nonterminals, rules2, startsymbol);
             fail("Expected exception:Left side of rule has to be just one nonterminal");
         } catch (Exception e) {
+            // test successful
             e.printStackTrace();
         }
     }

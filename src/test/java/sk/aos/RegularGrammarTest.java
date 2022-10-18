@@ -14,6 +14,7 @@ import static org.junit.Assert.fail;
 
 
 public class RegularGrammarTest {
+
     HashSet<String> terminals;
     HashSet<String> nonterminals;
 
@@ -53,18 +54,13 @@ public class RegularGrammarTest {
         rules3 = new HashSet<>(Arrays.asList(rule1, rule2, rule4)); // test3
         rules4 = new HashSet<>(Arrays.asList(rule1, rule2, rule5)); // test4
         rules5 = new HashSet<>(Arrays.asList(rule1, rule2, rule6)); // test5
-		
-       new RegularGrammar(terminals, nonterminals, rules1, startsymbol);
+
+        new RegularGrammar(terminals, nonterminals, rules1, startsymbol);
     }
 
     @Test
-    public void test1() {
-        try {
-            new RegularGrammar(terminals, nonterminals, rules1, startsymbol);
-        } catch (Exception e) {
-            fail("Unexpected exception");
-            e.printStackTrace();
-        }
+    public void test1() throws Exception {
+        new RegularGrammar(terminals, nonterminals, rules1, startsymbol);
     }
 
     @Test
@@ -73,6 +69,7 @@ public class RegularGrammarTest {
             new RegularGrammar(terminals, nonterminals, rules2, startsymbol);
             fail("Expected exception:Right sides of rules should be made only from 2 symbols");
         } catch (Exception e) {
+            // test successful
             e.printStackTrace();
         }
     }
@@ -83,6 +80,7 @@ public class RegularGrammarTest {
             new RegularGrammar(terminals, nonterminals, rules3, startsymbol);
             fail("Expected exception:First symbol of right side of rule should be terminal");
         } catch (Exception e) {
+            // test successful
             e.printStackTrace();
         }
     }
@@ -93,6 +91,7 @@ public class RegularGrammarTest {
             new RegularGrammar(terminals, nonterminals, rules4, startsymbol);
             fail("Expected exception:First symbol of right side of rule should be terminal");
         } catch (Exception e) {
+            // test successful
             e.printStackTrace();
         }
     }
@@ -103,6 +102,7 @@ public class RegularGrammarTest {
             new RegularGrammar(terminals, nonterminals, rules5, startsymbol);
             fail("Expected exception:Second symbol of right side of rule should be nonterminal");
         } catch (Exception e) {
+            // test successful
             e.printStackTrace();
         }
     }

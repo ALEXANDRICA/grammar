@@ -4,6 +4,7 @@ import sk.aos.grammar.ContextFreeGrammar;
 import sk.aos.grammar.Rule;
 
 import java.util.HashSet;
+import java.util.Objects;
 
 
 public class FirstAndFollowClass {
@@ -15,7 +16,7 @@ public class FirstAndFollowClass {
             first.add(symbol); // ak je terminal tak first je symbol
         } else {
             for (Rule r : grammar.getRules()) {
-                if (r.getLeftSide().get(0) == symbol) {
+                if (Objects.equals(r.getLeftSide().get(0), symbol)) {
                     if (grammar.getTerminals().contains(r.getRightSide().get(0))) //ak je terminal alebo e vlozime do first
                         first.add(r.getRightSide().get(0));
                     else { // ak je neterminal, prehladavame pravu stranu pravidla
@@ -45,7 +46,7 @@ public class FirstAndFollowClass {
             for (Rule r : grammar.getRules()) {
                 if (r.getRightSide().contains(symbol)) {
                     for (int i = 0; i < r.getRightSide().size(); i++) {
-                        if (r.getRightSide().get(i) == symbol) {
+                        if (Objects.equals(r.getRightSide().get(i), symbol)) {
                             if ((i + 1) < r.getRightSide().size()) {
                                 follow.addAll(first(grammar, r.getRightSide().get(i + 1)));
                                 follow.remove("e");
@@ -61,7 +62,7 @@ public class FirstAndFollowClass {
             }
         } while (lv_f.size() != follow.size());
 
-        if (grammar.getStartsymbol() == symbol)
+        if (Objects.equals(grammar.getStartsymbol(), symbol))
             follow.add("e");
 
         return follow;

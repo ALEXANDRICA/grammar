@@ -143,10 +143,8 @@ public class TransitionFunction {
                 int index = word.indexOf("#");
                 ArrayList<Integer> indexes = new ArrayList<>();
                 while (index >= 0) {
-                    if (index >= 0) {
-                        indexes.add(index);
-                        index = word.indexOf("#", index + 1);
-                    }
+                    indexes.add(index);
+                    index = word.indexOf("#", index + 1);
                 }
                 // substring between charAt(0) and first index of separator
                 subword = word.substring(word.indexOf(String.valueOf(word.charAt(0))), indexes.get(0));
@@ -163,13 +161,13 @@ public class TransitionFunction {
                 // substring at the end of word
                 subword = word.substring(indexes.get(indexes.size() - 1) + 1, word.indexOf(String.valueOf(word.charAt(word.length() - 1))) + 1);
                 ret.add(subword);
-                return ret;
             }
             // if string doesn't contain separator, returns value
             else {
                 ret.add(table[pom1][pom2]);
-                return ret;
             }
+
+            return ret;
         }
 
     }

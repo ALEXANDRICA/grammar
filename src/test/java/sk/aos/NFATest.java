@@ -12,10 +12,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.Assert.fail;
-
 
 public class NFATest {
+
     HashSet<String> terminals;
     HashSet<String> nonterminals;
 
@@ -54,8 +53,6 @@ public class NFATest {
     HashSet<Rule> rules1;
     HashSet<Rule> rules2;
     HashSet<Rule> rules3;
-    HashSet<Rule> rules4;
-    HashSet<Rule> rules5;
 
     String startsymbol, startsymbol2, startsymbol3;
 
@@ -117,32 +114,22 @@ public class NFATest {
     }
 
     @Test
-    public void test() {
-        try {
-            NondeterministicFinAutomaton n = new NondeterministicFinAutomaton((RegularGrammar) g);
-            System.out.println("Transition function of n");
-            n.getTransitionFunction().showTable();
+    public void test() throws Exception {
+        NondeterministicFinAutomaton n = new NondeterministicFinAutomaton((RegularGrammar) g);
+        System.out.println("Transition function of n");
+        n.getTransitionFunction().showTable();
 
-            NondeterministicFinAutomaton n2 = new NondeterministicFinAutomaton((RegularGrammar) g2);
-            System.out.println("Transition function of n2");
-            n2.getTransitionFunction().showTable();
-        } catch (Exception e) {
-            fail("Unexpected exception");
-            e.printStackTrace();
-        }
+        NondeterministicFinAutomaton n2 = new NondeterministicFinAutomaton((RegularGrammar) g2);
+        System.out.println("Transition function of n2");
+        n2.getTransitionFunction().showTable();
     }
 
     @Test
-    public void test2() {
+    public void test2() throws Exception {
         // test of adding epsilon to inputSymbols
-        try {
-            NondeterministicFinAutomaton n3 = new NondeterministicFinAutomaton((RegularGrammar) g3);
-            System.out.println("Transition function of n3");
-            n3.getTransitionFunction().showTable();
-        } catch (Exception e) {
-            fail("Unexpected exception");
-            e.printStackTrace();
-        }
+        NondeterministicFinAutomaton n3 = new NondeterministicFinAutomaton((RegularGrammar) g3);
+        System.out.println("Transition function of n3");
+        n3.getTransitionFunction().showTable();
     }
 
 }

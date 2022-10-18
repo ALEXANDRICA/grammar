@@ -15,6 +15,7 @@ import static org.junit.Assert.fail;
 
 
 public class GrammarTest {
+
     HashSet<String> terminals;
     HashSet<String> nonterminals; // set of nonterminals
     Rule rule1;
@@ -72,13 +73,8 @@ public class GrammarTest {
     }
 
     @Test
-    public void test1() {
-        try {
-            new Grammar(terminals, nonterminals, rules1, startsymbol);
-        } catch (Exception e) {
-            fail("Unexepected exception");
-            e.printStackTrace();
-        }
+    public void test1() throws Exception {
+        new Grammar(terminals, nonterminals, rules1, startsymbol);
     }
 
     @Test
@@ -87,6 +83,7 @@ public class GrammarTest {
             new Grammar(terminals, nonterminals, rules2, startsymbol);
             fail("Expected exception:Rules have to be made only from terminal or nonterminal symbols");
         } catch (Exception e) {
+            // test successful
             e.printStackTrace();
         }
     }
@@ -97,6 +94,7 @@ public class GrammarTest {
             new Grammar(terminals, nonterminals, rules3, startsymbol);
             fail("Expected exception:Left sides of Rules do not contain nonterminals");
         } catch (Exception e) {
+            // test successful
             e.printStackTrace();
         }
     }
@@ -107,6 +105,7 @@ public class GrammarTest {
             new Grammar(terminals, nonterminals, rules4, startsymbol);
             fail("Expected exception:Left sides of Rules do not contain starting symbol of grammar");
         } catch (Exception e) {
+            // test successful
             e.printStackTrace();
         }
     }
@@ -117,6 +116,7 @@ public class GrammarTest {
             new Grammar(terminals, nonterminals, rules5, startsymbol);
             fail("Expected exception:Rules have to be made only from terminal or nonterminal symbols");
         } catch (Exception e) {
+            // test successful
             e.printStackTrace();
         }
     }
@@ -127,6 +127,7 @@ public class GrammarTest {
             new Grammar(terminals, nonterminals, rules1, startsymbol2);
             fail("Exepected exception:Left sides of Rules do not contain starting symbol of grammar");
         } catch (Exception e) {
+            // test successful
             e.printStackTrace();
         }
     }
