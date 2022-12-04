@@ -42,7 +42,6 @@ public class FirstAndFollowClass {
         do {
             lv_f.clear();
             lv_f.addAll(follow);
-
             for (Rule r : grammar.getRules()) {
                 if (r.getRightSide().contains(symbol)) {
                     for (int i = 0; i < r.getRightSide().size(); i++) {
