@@ -31,6 +31,14 @@ public class LALR1item {
         this.expectedSymbols = expectSymbols;
     }
 
-    // dokoncit
+    public Rule getLALRrule() {
+        return LALRrule;
+    }
+
+
+    public HashSet<String> getExpectedSymbols() {
+        return expectedSymbols;
+    }
+
 }
 
