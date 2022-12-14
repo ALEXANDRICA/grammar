@@ -1,14 +1,18 @@
 package sk.aos.LALR1;
 
+import lombok.Getter;
+import lombok.Setter;
 import sk.aos.grammar.Rule;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
+@Getter
+@Setter
 public class LALR1item {
 
     Rule LALRrule;											// atribut pre LALR1 pravidlo s "." ako ukazovatel
-    HashSet<String> expectedSymbols = new HashSet<>();		// atribut reprezentujuci ocakavany symbol pre LALR1 polozku
+    HashSet<String> expectedSymbols;		// atribut reprezentujuci ocakavany symbol pre LALR1 polozku
 
 	public LALR1item(Rule rule, HashSet<String> expectSymbols){    // parametre su pravidla G, z kt. chceme vytvorit LALR1 polozky v jednotl. stavoch; + ocakavane symboly
         ArrayList<String> rightSide = new ArrayList<>(rule.getRightSide());
@@ -29,15 +33,6 @@ public class LALR1item {
 
         this.LALRrule = new Rule(leftSide, rightSide);
         this.expectedSymbols = expectSymbols;
-    }
-
-    public Rule getLALRrule() {
-        return LALRrule;
-    }
-
-
-    public HashSet<String> getExpectedSymbols() {
-        return expectedSymbols;
     }
 
 }
