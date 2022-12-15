@@ -15,6 +15,7 @@ public class ActionGotoTables {
         states.add(state);
         LALRoneAutomaton();
         actionTable();
+        gotoTable();
 
     }
 
@@ -74,6 +75,47 @@ public class ActionGotoTables {
         }
         System.out.println(outPut);
         System.out.println();
+    }
+    private void gotoTable() {																			// operacia na zobrazenie tabulky GOTO v konzole
+        StringBuilder outPut = new StringBuilder(format("GOTO"));
+        for(State s : states) {
+            outPut.append(format("s" + s.stateNumber));
+        }
+
+        System.out.println(outPut);
+        for(String t : grammar.getTerminals()) {
+            outPut = new StringBuilder(format(t));
+            for(State s : states) {
+                if(s.nextStates.containsKey(t)) {
+                    outPut.append(format("s" + s.nextStates.get(t)));
+                }
+                else {
+                    outPut.append(format(""));
+                }
+            }
+            System.out.println(outPut);
+        }
+        for(String t : grammar.getNonterminals()) {
+            outPut = new StringBuilder(format(t));
+            for(State s : states) {
+                if(s.nextStates.containsKey(t)) {
+                    outPut.append(format("s" + s.nextStates.get(t)));
+                }
+                else {
+                    outPut.append(format(""));
+                }
+            }
+            System.out.println(outPut);
+        }
+
+
+    }
+    public ArrayList<State> getStates() {
+        return states;
+    }
+
+    public void setStates(ArrayList<State> states) {
+        this.states = states;
     }
 
     private String format(String str) {
