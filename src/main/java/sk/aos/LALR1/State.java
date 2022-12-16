@@ -11,7 +11,6 @@ import sk.aos.FirstandFollow.FirstAndFollowClass;
 import sk.aos.grammar.ContextFreeGrammar;
 import sk.aos.grammar.Rule;
 
-
 @Getter
 @Setter
 public class State {
@@ -19,15 +18,16 @@ public class State {
     int stateNumber;                                            // atribut pre cislo stavu
     HashMap<String, Integer> nextStates;                        // atribut pre nasledujuci stav z aktualneho
     ArrayList<LALR1item> lalr1Items;                            // atribut pre zapamatanie si LALR1 polozky
-    HashSet<String> transitions;							   // atribut pre ulozenie symbolov cez ktore robime presun
-    HashSet<String> reductions;								   // atribut pre ulozenie symbolov pri ktorych robime redukciu
+    HashSet<String> transitions;							    // atribut pre ulozenie symbolov cez ktore robime presun
+    HashSet<String> reductions;								    // atribut pre ulozenie symbolov pri ktorych robime redukciu
     ContextFreeGrammar grammar;
+
 
     public State(ContextFreeGrammar grammar) {                  // konstruktor pre prvy stav, vstupom je bezkontextova G
         this.grammar = grammar;
         this.lalr1Items = new ArrayList<>();
-        this.transitions = new HashSet<String>();
-        this.reductions = new HashSet<String>();
+        this.transitions = new HashSet<>();
+        this.reductions = new HashSet<>();
         this.nextStates = new HashMap<>();
         HashSet<String> expectedSymbols = new HashSet<>();
         expectedSymbols.add("epsilon");
@@ -53,7 +53,7 @@ public class State {
         this.grammar = grammar;                                                    // vstupom su LALR1 pravidla z predosleho stavu a bezkontexotva G
         this.lalr1Items = new ArrayList<>();
         this.lalr1Items.addAll(items);
-        this.reductions = new HashSet<String>();
+        this.reductions = new HashSet<>();
         this.nextStates = new HashMap<>();
 
         try {
@@ -69,6 +69,8 @@ public class State {
         this.stateNumber = counter;
         counter++;
     }
+
+
     @SuppressWarnings("static-access")
     private void closure() throws Exception {									// uzaverova operacia
         FirstAndFollowClass first = new FirstAndFollowClass();
@@ -100,6 +102,7 @@ public class State {
             }
         }
     }
+
 
     private void transitionsAndReductions() {						// Podmienka pre pridanie symbolov do transitions resp reduction
 

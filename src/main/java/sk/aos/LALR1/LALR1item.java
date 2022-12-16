@@ -12,9 +12,10 @@ import java.util.HashSet;
 public class LALR1item {
 
     Rule LALRrule;											// atribut pre LALR1 pravidlo s "." ako ukazovatel
-    HashSet<String> expectedSymbols;		// atribut reprezentujuci ocakavany symbol pre LALR1 polozku
+    HashSet<String> expectedSymbols;		                // atribut reprezentujuci ocakavany symbol pre LALR1 polozku
 
-	public LALR1item(Rule rule, HashSet<String> expectSymbols){    // parametre su pravidla G, z kt. chceme vytvorit LALR1 polozky v jednotl. stavoch; + ocakavane symboly
+
+	public LALR1item(Rule rule, HashSet<String> expectSymbols){             // parametre su pravidla G, z kt. chceme vytvorit LALR1 polozky v jednotl. stavoch; + ocakavane symboly
         ArrayList<String> rightSide = new ArrayList<>(rule.getRightSide());
         ArrayList<String> leftSide = new ArrayList<>(rule.getLeftSide());
 
