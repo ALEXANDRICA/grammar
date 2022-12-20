@@ -26,12 +26,12 @@ public class ActionGotoTables {
     }
 
 
-    private void LALRoneAutomaton() {                                        // operacia, ktora predstavuje LALR (1) automat (vytvaranie novych stavovo)
+    private void LALRoneAutomaton() {                     // operacia, ktora predstavuje LALR1 automat (vytvaranie novych stavov)
         try {
             for (int x = 0; x < states.size(); x++) {
                 State s = states.get(x);
-                ArrayList<LALR1item> items = new ArrayList<>();
-                items = s.getLalr1Items();
+                ArrayList<LALR1item> items = s.getLalr1Items();
+
                 for (String a : s.getTransitions()) {
                     for (LALR1item l : items) {
                         int i = l.getLALRrule().getRightSide().indexOf(".");

@@ -37,12 +37,12 @@ public class State {
         try {
             closure();
         } catch (Exception e) {
-            System.out.println("Chyba.");
+            System.out.println("Chyba closure 1.stav.");
         }
         try {
             transitionsAndReductions();
         } catch (Exception e) {
-            System.out.println("Chyba.");
+            System.out.println("Chyba transit&reduct 1.stav.");
         }
         this.stateNumber = counter;
         counter++;
@@ -59,12 +59,12 @@ public class State {
         try {
             closure();
         } catch (Exception e) {
-            System.out.println("Chyba.");
+            System.out.println("Chyba closure stavy.");
         }
         try {
             transitionsAndReductions();
         } catch (Exception e) {
-            System.out.println("Chyba.");
+            System.out.println("Chyba transit&reduct stavy.");
         }
         this.stateNumber = counter;
         counter++;
