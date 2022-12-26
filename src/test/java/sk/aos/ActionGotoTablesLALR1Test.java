@@ -1,115 +1,81 @@
 package sk.aos;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import sk.aos.grammar.ContextFreeGrammar;
-import sk.aos.grammar.Rule;
 import sk.aos.LALR1.ActionGotoTables;
 import sk.aos.LALR1.LALR1item;
 import sk.aos.LALR1.State;
+import sk.aos.grammar.ContextFreeGrammar;
+import sk.aos.grammar.Rule;
+
+import java.util.List;
+import java.util.Set;
 
 public class ActionGotoTablesLALR1Test {
 
-    HashSet<String> terminals1, terminals2;
-    HashSet<String> nonterminals1, nonterminals2;
-    Rule rule11, rule12, rule13, rule21, rule22, rule23, rule24, rule25, rule26, rule27;
-    HashSet<Rule> rules1, rules2;
-    String startsymbol1, startsymbol2;
+    @Test
+    public void test() throws Exception {
+        Set<String> terminals = Set.of("$", "id");
+        Set<String> nonterminals = Set.of("S", "O", "P");
+        Set<Rule> rules = Set.of(
+                new Rule(List.of("S"), List.of("id", "O", "$")),
+                new Rule(List.of("O"), List.of("P", "P")),
+                new Rule(List.of("P"), List.of("id")));
+        String startSymbol = "S";
 
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-    }
+        ContextFreeGrammar g = new ContextFreeGrammar(terminals, nonterminals, rules, startSymbol);
+        ActionGotoTables test1 = new ActionGotoTables(g);
 
-    @Before
-    public void setUp() throws Exception {
+        for (State state : test1.getStates()) {
+            System.out.println("State: " + state.getStateNumber());
+            List<LALR1item> items = state.getLalr1Items();
 
-        terminals1 = new HashSet<>(Arrays.asList("$", "id"));
-        nonterminals1 = new HashSet<>(Arrays.asList("S", "O", "P"));
-        rule11 = new Rule(new ArrayList<>(Arrays.asList("S")), new ArrayList<>(Arrays.asList("id","O", "$")));
-        rule12 = new Rule(new ArrayList<>(Arrays.asList("O")), new ArrayList<>(Arrays.asList("P", "P")));
-        rule13 = new Rule(new ArrayList<>(Arrays.asList("P")), new ArrayList<>(Arrays.asList("id")));
-        rules1= new HashSet<>(Arrays.asList(rule11, rule12, rule13));
-        startsymbol1="S";
+            for (LALR1item item : items) {
+                System.out.print(item.getLALRrule().getLeftSide().toString());
+                System.out.print("=>");
+                System.out.print(item.getLALRrule().getRightSide().toString() + ", {");
+                System.out.print(item.getExpectedSymbols().toString() + "}");
+                System.out.println();
 
-        terminals2 = new HashSet<>(Arrays.asList("a", "b", "c", "$"));
-        nonterminals2 = new HashSet<>(Arrays.asList("S", "A", "B"));
-        rule21 = new Rule(new ArrayList<>(Arrays.asList("S")), new ArrayList<>(Arrays.asList("B", "$")));
-        rule22 = new Rule(new ArrayList<>(Arrays.asList("B")), new ArrayList<>(Arrays.asList("a", "B", "b")));
-        rule23 = new Rule(new ArrayList<>(Arrays.asList("B")), new ArrayList<>(Arrays.asList("A")));
-        rule24 = new Rule(new ArrayList<>(Arrays.asList("A")), new ArrayList<>(Arrays.asList("b", "A")));
-        rule25 = new Rule(new ArrayList<>(Arrays.asList("A")), new ArrayList<>(Arrays.asList("c")));
-        rules2= new HashSet<>(Arrays.asList(rule21, rule22, rule23, rule24, rule25));
-        startsymbol2="S";
+            }
+            System.out.println(state.getReductions());
+            System.out.println(state.getTransitions());
+        }
+        System.out.println();
     }
 
     @Test
-    public void test() {
+    public void test1() throws Exception {
+        Set<String> terminals = Set.of("$", "0", "1", "a", "b");
+        Set<String> nonterminals = Set.of("S", "E", "A", "B");
+        Set<Rule> rules = Set.of(
+                new Rule(List.of("S"), List.of("E", "$")),
+                new Rule(List.of("E"), List.of("A", "0")),
+                new Rule(List.of("E"), List.of("b", "A", "1")),
+                new Rule(List.of("E"), List.of("B", "1")),
+                new Rule(List.of("E"), List.of("b", "B", "0")),
+                new Rule(List.of("A"), List.of("a")),
+                new Rule(List.of("B"), List.of("a")));
+        String startSymbol = "S";
 
-        try {
-            ContextFreeGrammar g = new ContextFreeGrammar(terminals2, nonterminals2, rules2, startsymbol2);
-            ActionGotoTables test1 = new ActionGotoTables(g);
+        ContextFreeGrammar g = new ContextFreeGrammar(terminals, nonterminals, rules, startSymbol);
+        ActionGotoTables test1 = new ActionGotoTables(g);
 
-            for(State state : test1.getStates()) {
-                System.out.println("State: " + state.getStateNumber());
-                ArrayList<LALR1item> items = state.getLalr1Items();
+        for (State state : test1.getStates()) {
+            System.out.println("State: " + state.getStateNumber());
+            List<LALR1item> items = state.getLalr1Items();
 
-                for (LALR1item item : items) {
-                    System.out.print(item.getLALRrule().getLeftSide().toString());
-                    System.out.print("=>");
-                    System.out.print(item.getLALRrule().getRightSide().toString() + ", {");
-                    System.out.print(item.getExpectedSymbols().toString() + "}");
-                    System.out.println();
+            for (LALR1item item : items) {
+                System.out.print(item.getLALRrule().getLeftSide().toString());
+                System.out.print("=>");
+                System.out.print(item.getLALRrule().getRightSide().toString() + ", {");
+                System.out.print(item.getExpectedSymbols().toString() + "}");
+                System.out.println();
 
-                }
-                System.out.println(state.getReductions());
-                System.out.println(state.getTransitions());
             }
-            System.out.println();
-
-
-
-        } catch (Exception e) {
-
-            fail("Error in test.");
+            System.out.println(state.getReductions());
+            System.out.println(state.getTransitions());
         }
-    }
-
-    @SuppressWarnings("static-access")
-    @Test
-    public void test1() {
-
-        try {
-            ContextFreeGrammar g = new ContextFreeGrammar(terminals1, nonterminals1, rules1, startsymbol1);
-            ActionGotoTables test1 = new ActionGotoTables(g);
-
-            for(State state : test1.getStates()) {
-                System.out.println("State: " + state.getStateNumber());
-                ArrayList<LALR1item> items = state.getLalr1Items();
-
-                for (LALR1item item : items) {
-                    System.out.print(item.getLALRrule().getLeftSide().toString());
-                    System.out.print("=>");
-                    System.out.print(item.getLALRrule().getRightSide().toString() + ", {");
-                    System.out.print(item.getExpectedSymbols().toString() + "}");
-                    System.out.println();
-
-                }
-                System.out.println(state.getReductions());
-                System.out.println(state.getTransitions());
-            }
-            System.out.println();
-        } catch (Exception e) {
-
-            fail("Not yet implemented");
-        }
+        System.out.println();
     }
 
 }

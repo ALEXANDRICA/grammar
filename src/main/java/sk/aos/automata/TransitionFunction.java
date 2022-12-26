@@ -5,14 +5,14 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 public class TransitionFunction {
 
-    private HashSet<String> rowHeaders;
-    private HashSet<String> columnHeaders;
+    private Set<String> rowHeaders;
+    private Set<String> columnHeaders;
     private String[][] table;
 
     /**
@@ -20,7 +20,7 @@ public class TransitionFunction {
      *              positions [m][1] have to be states of automaton, position [0][0] is "-". If there is nondeterministic step in automaton, states have to
      *              be separated with sign "#".
      */
-    public TransitionFunction(String[][] table, HashSet<String> rowHeaders, HashSet<String> columnHeaders) {
+    public TransitionFunction(String[][] table, Set<String> rowHeaders, Set<String> columnHeaders) {
         super();
         this.table = table;
         this.rowHeaders = rowHeaders;
@@ -32,7 +32,7 @@ public class TransitionFunction {
      * @param columnHeaders represents input symbols of finite automata
      *                      this constructor creates table without data, just with row and column headers
      */
-    public TransitionFunction(HashSet<String> rowHeaders, HashSet<String> columnHeaders) {
+    public TransitionFunction(Set<String> rowHeaders, Set<String> columnHeaders) {
         this.rowHeaders = rowHeaders;
         this.columnHeaders = columnHeaders;
 
