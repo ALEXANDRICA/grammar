@@ -10,18 +10,18 @@ import java.util.*;
 @Setter
 public class DeterministicFinAutomaton {
 
-    private ArrayList<HashSet<String>> states;
-    private HashSet<String> inputSymbols;
-    private HashSet<String> initialState;
-    private HashMap<HashSet<String>, HashMap<String, HashSet<String>>> transitionFunction;
-    private ArrayList<HashSet<String>> acceptingStates;
+    private List<Set<String>> states;
+    private Set<String> inputSymbols;
+    private Set<String> initialState;
+    private Map<Set<String>, Map<String, Set<String>>> transitionFunction;
+    private List<Set<String>> acceptingStates;
     private String epsilon = "epsilon";
 
     public DeterministicFinAutomaton(NondeterministicFinAutomaton n) {
         this.inputSymbols = n.getInputSymbols();
 
         // adds closure of initial state of NFA to initial state of DKA
-        HashSet<String> pom = new HashSet<>();
+        Set<String> pom = new HashSet<>();
         pom.add(n.getInitialState());
         this.initialState = closure(pom, n.getTransitionFunction());
 
@@ -35,15 +35,15 @@ public class DeterministicFinAutomaton {
         // for all states of DKA
         for (int i = 0; i < this.states.size(); i++) {
             // gets state of DKA
-            HashSet<String> state = states.get(i);
-            HashMap<String, HashSet<String>> pomocna = new HashMap<>();
+            Set<String> state = states.get(i);
+            Map<String, Set<String>> pomocna = new HashMap<>();
 
             // finds result state of state at input symbol
             for (String is : this.inputSymbols) {
                 // help variables
-                ArrayList<String> pomAL;
-                HashSet<String> pomresult = new HashSet<>();
-                HashSet<String> result = new HashSet<>();
+                List<String> pomAL;
+                Set<String> pomresult = new HashSet<>();
+                Set<String> result = new HashSet<>();
 
                 if (!is.equals("epsilon")) {
                     for (String stInNKA : state) {
@@ -90,7 +90,7 @@ public class DeterministicFinAutomaton {
 
         // finds accepting states in set of states
         this.acceptingStates = new ArrayList<>();
-        for (HashSet<String> state : this.states) {
+        for (Set<String> state : this.states) {
             for (String s : n.getAcceptingStates()) {
                 if (state.contains(s)) {
                     if (!this.acceptingStates.contains(state)) {
@@ -115,10 +115,10 @@ public class DeterministicFinAutomaton {
         }
     }
 
-    private HashSet<String> closure(HashSet<String> states, TransitionFunction transitionFunction) {
-        ArrayList<String> pom;
-        ArrayList<String> statesAL = new ArrayList<>(states);
-        ArrayList<String> pom2 = new ArrayList<>();
+    private Set<String> closure(Set<String> states, TransitionFunction transitionFunction) {
+        List<String> pom;
+        List<String> statesAL = new ArrayList<>(states);
+        List<String> pom2 = new ArrayList<>();
 
         // if there is epsilon defined as input symbol
         if (transitionFunction.getColumnHeaders().contains("epsilon")) {
@@ -157,7 +157,7 @@ public class DeterministicFinAutomaton {
         System.out.println("-------Input Symbols-------");
         System.out.println(this.getInputSymbols());
         System.out.println("------Transition Function:------");
-        for (Map.Entry<HashSet<String>, HashMap<String, HashSet<String>>> entry : transitionFunction.entrySet()) {
+        for (Map.Entry<Set<String>, Map<String, Set<String>>> entry : transitionFunction.entrySet()) {
             System.out.println(entry.getKey() + " : " + entry.getValue());
         }
         System.out.println("------Accepting states:------");

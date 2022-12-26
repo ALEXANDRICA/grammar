@@ -1,11 +1,10 @@
 package sk.aos.grammar;
 
-import java.util.HashSet;
+import java.util.Set;
 
 public class ContextFreeGrammar extends Grammar {
 
-    public ContextFreeGrammar(HashSet<String> terminals, HashSet<String> nonterminals, HashSet<Rule> rules,
-                              String startsymbol) throws Exception {
+    public ContextFreeGrammar(Set<String> terminals, Set<String> nonterminals, Set<Rule> rules, String startsymbol) throws Exception {
         super(terminals, nonterminals, rules, startsymbol);
         int check = 0; // checks if left side of rule is just one symbol
         for (Rule r : rules) {

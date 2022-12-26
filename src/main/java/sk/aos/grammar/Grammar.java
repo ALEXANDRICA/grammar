@@ -3,21 +3,21 @@ package sk.aos.grammar;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
+import java.util.Set;
 
 
 @Getter
 @Setter
 public class Grammar {
 
-    private HashSet<String> terminals; // Set of terminals
-    private HashSet<String> nonterminals; // set of nonterminals
-    private HashSet<Rule> rules; // set of rules of grammar
+    private Set<String> terminals; // Set of terminals
+    private Set<String> nonterminals; // set of nonterminals
+    private Set<Rule> rules; // set of rules of grammar
     private String startsymbol; // starting symbol of grammar
     private Rule startrule; // rule that contains starting symbol of grammar
     private final String epsilon = "epsilon";
 
-    public Grammar(HashSet<String> terminals, HashSet<String> nonterminals, HashSet<Rule> rules, String startsymbol) throws Exception {
+    public Grammar(Set<String> terminals, Set<String> nonterminals, Set<Rule> rules, String startsymbol) throws Exception {
         super();
         this.terminals = terminals;
         this.nonterminals = nonterminals;

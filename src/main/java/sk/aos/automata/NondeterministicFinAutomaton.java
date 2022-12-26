@@ -6,21 +6,21 @@ import sk.aos.grammar.RegularGrammar;
 import sk.aos.grammar.Rule;
 
 import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 public class NondeterministicFinAutomaton {
 
-    private HashSet<String> states;
-    private HashSet<String> inputSymbols;
+    private Set<String> states;
+    private Set<String> inputSymbols;
     private String initialState;
     private TransitionFunction transitionFunction;
-    private HashSet<String> acceptingStates;
+    private Set<String> acceptingStates;
     private final String epsilon = "epsilon";
     private final String qf = "q";
 
-    public NondeterministicFinAutomaton(HashSet<String> states, HashSet<String> inputSymbols, String initialState,
-                                        TransitionFunction transitionFunction, HashSet<String> acceptingStates) {
+    public NondeterministicFinAutomaton(Set<String> states, Set<String> inputSymbols, String initialState, TransitionFunction transitionFunction, Set<String> acceptingStates) {
         super();
         this.states = states;
         this.inputSymbols = inputSymbols;

@@ -6,48 +6,57 @@ import sk.aos.grammar.ContextFreeGrammar;
 import sk.aos.grammar.Rule;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
 @Setter
 public class ActionGotoTables {
-    ArrayList<State> states = new ArrayList<>();
-    private final ArrayList<LALR1item> newItems = new ArrayList<>();
+
+    List<State> states = new ArrayList<>();
+    private final List<LALR1item> newItems = new ArrayList<>();
     private final ContextFreeGrammar grammar;
 
     public ActionGotoTables(ContextFreeGrammar grammar) {                    // konstruktor triedy .. vstupnym parametrom je bezkontextova gramatika
-        this.grammar = grammar;                                                // pre ktoré chceme vytvorit tabulky ACTION a GOTO
+        this.grammar = grammar;                                              // pre ktoré chceme vytvorit tabulky ACTION a GOTO
         State state = new State(grammar);
         states.add(state);
         LALRoneAutomaton();
+        // TODO: tu implementovat zlucenie stavov
         actionTable();
         gotoTable();
-
     }
 
 
     private void LALRoneAutomaton() {                     // operacia, ktora predstavuje LALR1 automat (vytvaranie novych stavov)
         try {
-            for (int x = 0; x < states.size(); x++) {
-                State s = states.get(x);
-                ArrayList<LALR1item> items = s.getLalr1Items();
+            for (int i = 0; i < states.size(); i++) {
+                State stav = states.get(i);
+                List<LALR1item> riadky = stav.getLalr1Items();
 
-                for (String a : s.getTransitions()) {
-                    for (LALR1item l : items) {
-                        int i = l.getLALRrule().getRightSide().indexOf(".");
-                        if (l.getLALRrule().getRightSide().indexOf(".") != l.getLALRrule().getRightSide().size() - 1 && Objects.equals(a, l.getLALRrule().getRightSide().get(i + 1))) {
-                            LALR1item k = new LALR1item(l.getLALRrule(), l.getExpectedSymbols());
-                            newItems.add(k);
+                for (String transition : stav.getTransitions()) {
+
+                    for (LALR1item riadok : riadky) {
+                        List<String> rightSide = riadok.getLALRrule().getRightSide();
+                        int idxBodky = rightSide.indexOf(".");
+
+                        if (idxBodky != rightSide.size() - 1 && Objects.equals(transition, rightSide.get(idxBodky + 1))) {
+                            // ak bodka nie je posledna & znak posunu je za bodkou
+                            // prida do newItems novy LALR1 s posunutou bodkou
+                            LALR1item item = new LALR1item(riadok.getLALRrule(), riadok.getExpectedSymbols());
+                            newItems.add(item);
                         }
                     }
-                    State newState = new State(newItems, grammar);
-                    s.nextStates.put(a, newState.stateNumber);
+
+                    State newState = new State(newItems, grammar); // robi sa aj closure, transition and reduction
+                    stav.nextStates.put(transition, newState.stateNumber);
                     states.add(newState);
                     newItems.clear();
                 }
             }
         } catch (Exception e) {
             System.out.println("Chyba tu.");
+            throw e;
         }
     }
 
