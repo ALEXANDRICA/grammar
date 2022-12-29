@@ -8,6 +8,7 @@ import sk.aos.grammar.Rule;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,7 +23,7 @@ public class ActionGotoTables {
         State state = new State(grammar);
         states.add(state);
         LALRoneAutomaton();
-        // TODO: tu implementovat zlucenie stavov
+        joiningStates();
         actionTable();
         gotoTable();
     }
@@ -50,6 +51,8 @@ public class ActionGotoTables {
 
                     State newState = new State(newItems, grammar); // robi sa aj closure, transition and reduction
                     stav.nextStates.put(transition, newState.stateNumber);
+                    newState.previousStates.add(stav.stateNumber); //predosly stav
+                    newState.setPreviousTransition(transition);  //symbol presunu
                     states.add(newState);
                     newItems.clear();
                 }
@@ -60,6 +63,32 @@ public class ActionGotoTables {
         }
     }
 
+    private void joiningStates() {
+        for (int i = 0; i < states.size(); i++) {
+            State hlavny = states.get(i);
+            List<LALR1item> riadkyH = hlavny.getLalr1Items();
+            for (int j = i + 1; j < states.size(); j++) {
+                State vedlajsi = states.get(j);
+                List<LALR1item> riadkyV = vedlajsi.getLalr1Items();
+                if (riadkyH.size() == riadkyV.size() && riadkyH.containsAll(riadkyV)) {
+                    for (State stav : states) {
+                        if (stav.stateNumber == vedlajsi.previousStates.get(0)) {
+                            stav.nextStates.put(vedlajsi.previousTransition, hlavny.stateNumber);
+                        for (LALR1item riadokH : riadkyH) {
+                            Set<String> symbolH = riadokH.getExpectedSymbols();
+                            for (LALR1item riadokV : riadkyV) {
+                                Set<String> symbolV = riadokV.getExpectedSymbols();
+                                //if (symbolH != symbolV)
+                                symbolH.add(symbolV.toString());
+                            }
+                        }
+
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     private void actionTable() {                                            // operacia na zobrazenie tabulky ACTION  v konzole
         StringBuilder outPut = new StringBuilder(format("ACTION"));

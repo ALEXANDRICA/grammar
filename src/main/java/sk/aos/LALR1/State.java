@@ -15,6 +15,8 @@ public class State {
     private static int counter = 0;                        // pocitadlo na pocet stavov
     int stateNumber;                                       // atribut pre cislo stavu
     Map<String, Integer> nextStates;                       // atribut pre nasledujuci stav z aktualneho
+    List<Integer> previousStates;
+    String previousTransition;
     List<LALR1item> lalr1Items;                            // atribut pre zapamatanie si LALR1 polozky
     Set<String> transitions;                               // atribut pre ulozenie symbolov cez ktore robime presun
     Set<String> reductions;                                // atribut pre ulozenie symbolov pri ktorych robime redukciu
