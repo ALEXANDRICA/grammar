@@ -13,11 +13,11 @@ import java.util.*;
 public class State {
 
     private static int counter = 0;                        // pocitadlo na pocet stavov
-    int stateNumber;                                       // atribut pre cislo stavu
+    int stateNumber=0;                                       // atribut pre cislo stavu
     Map<String, Integer> nextStates;                       // atribut pre nasledujuci stav z aktualneho
-    List<Integer> previousStates;
+    Integer previousStates=0;
     String previousTransition;
-    List<LALR1item> lalr1Items;                            // atribut pre zapamatanie si LALR1 polozky
+    List<LALR1item> lalr1Items = null;                            // atribut pre zapamatanie si LALR1 polozky
     Set<String> transitions;                               // atribut pre ulozenie symbolov cez ktore robime presun
     Set<String> reductions;                                // atribut pre ulozenie symbolov pri ktorych robime redukciu
     ContextFreeGrammar grammar;
@@ -33,6 +33,7 @@ public class State {
         expectedSymbols.add("epsilon");
         LALR1item lalr1Item = new LALR1item(grammar.getStartrule(), expectedSymbols);
         lalr1Items.add(lalr1Item);
+        counter = 0;
 
         try {
             closure();

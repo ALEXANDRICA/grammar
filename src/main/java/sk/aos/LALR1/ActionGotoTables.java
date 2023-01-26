@@ -51,7 +51,7 @@ public class ActionGotoTables {
 
                     State newState = new State(newItems, grammar); // robi sa aj closure, transition and reduction
                     stav.nextStates.put(transition, newState.stateNumber);
-                    newState.previousStates.add(stav.stateNumber); //predosly stav
+                    newState.setPreviousStates(stav.stateNumber); //predosly stav
                     newState.setPreviousTransition(transition);  //symbol presunu
                     states.add(newState);
                     newItems.clear();
@@ -64,30 +64,36 @@ public class ActionGotoTables {
     }
 
     private void joiningStates() {
-        for (int i = 0; i < states.size(); i++) {
+        int k = 0;
+        for (int i = 0; i < states.size(); i++) {                   //do riadkovH polozky H
             State hlavny = states.get(i);
             List<LALR1item> riadkyH = hlavny.getLalr1Items();
-            for (int j = i + 1; j < states.size(); j++) {
+            for (int j = i + 1; j < states.size(); j++) {           //do riadkovV polozky V
                 State vedlajsi = states.get(j);
                 List<LALR1item> riadkyV = vedlajsi.getLalr1Items();
-                if (riadkyH.size() == riadkyV.size() && riadkyH.containsAll(riadkyV)) {
-                    for (State stav : states) {
-                        if (stav.stateNumber == vedlajsi.previousStates.get(0)) {
-                            stav.nextStates.put(vedlajsi.previousTransition, hlavny.stateNumber);
-                        for (LALR1item riadokH : riadkyH) {
-                            Set<String> symbolH = riadokH.getExpectedSymbols();
-                            for (LALR1item riadokV : riadkyV) {
-                                Set<String> symbolV = riadokV.getExpectedSymbols();
-                                //if (symbolH != symbolV)
-                                symbolH.add(symbolV.toString());
+                for (LALR1item riadokH : riadkyH) {                 //rozdelenie riadkaH na pravidlo a expected symbol
+                    Set<String> symbolH = riadokH.getExpectedSymbols();
+                    Rule ruleH = riadokH.getLALRrule();
+                    for (LALR1item riadokV : riadkyV) {             //rozdelenie riadkaV na pravidlo a expected symbol
+                        Set<String> symbolV = riadokV.getExpectedSymbols();
+                        Rule ruleV = riadokV.getLALRrule();
+                        if (riadkyH.size() == riadkyV.size() && ruleH.equals(ruleV)) {
+                            for (State stav : states) {
+                                if (stav.stateNumber == vedlajsi.previousStates) {   //ak aktualny stav = stavu pred stavomV, ktory bude vymazany
+                                    k = vedlajsi.stateNumber;                        //k = ktory stav bude vymazany
+                                    stav.nextStates.put(vedlajsi.previousTransition, hlavny.stateNumber); //aktualny na vedlajsi => aktualny na hlavny
+                                    if (symbolH != symbolV) {
+                                        symbolH.add(symbolV.toString());
+                                    }
+                                }
                             }
-                        }
-
                         }
                     }
                 }
             }
         }
+        System.out.println(k);
+        states.remove(k);
     }
 
     private void actionTable() {                                            // operacia na zobrazenie tabulky ACTION  v konzole
